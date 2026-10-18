@@ -4,6 +4,8 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 
+// Policy: homepage featured strip caps at 3 (newest first). Prefer featured: false on new posts.
+const FEATURED_CAP = 3;
 const allContent = (await getCollection("posts"))
     .filter((p) => !p.data.draft && p.data.featured)
     .map((p) => ({
@@ -11,7 +13,8 @@ const allContent = (await getCollection("posts"))
         date: p.data.pubDate,
         href: `/content/${p.slug}/`,
     }))
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
+    .sort((a, b) => b.date.getTime() - a.date.getTime())
+    .slice(0, FEATURED_CAP);
 
 function formatDate(date: Date): string {
     return date.toLocaleDateString("en-US", {
@@ -88,7 +91,7 @@ function formatDate(date: Date): string {
                     ))
                 }
             </div>
-            <a href="/work" class="view-all">View all work &rarr;</a>
+            <a href="/work" class="view-all">View all writing &rarr;</a>
         </section>
 
         <div class="divider" aria-hidden="true"></div>
