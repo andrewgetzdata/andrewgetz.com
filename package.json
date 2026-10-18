@@ -12,6 +12,7 @@
     "smol-toml": "^1.6.1"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.19",
     "astro": "^5.17.1",
     "geist": "^1.7.0"
   }
