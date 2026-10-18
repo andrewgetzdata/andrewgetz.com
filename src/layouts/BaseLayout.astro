@@ -25,7 +25,7 @@ const {
 } = Astro.props;
 
 // Generate canonical URL
-const siteUrl = Astro.site || 'https://andrewgetz.dev';
+const siteUrl = Astro.site || 'https://andrewgetz.com';
 const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl);
 
 // Structured data for SEO
@@ -39,7 +39,7 @@ const structuredData = {
     "author": {
       "@type": "Person",
       "name": "Andrew Getz",
-      "url": "https://andrewgetz.dev",
+      "url": "https://andrewgetz.com",
       "jobTitle": "Builder",
       "knowsAbout": ["Web Development", "Data Analysis", "JavaScript", "Python", "Astro"],
       "sameAs": [

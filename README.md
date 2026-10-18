@@ -141,8 +141,8 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🤝 Connect
 
-- **Website**: [andrewgetz.dev](https://andrewgetz.dev)
-- **Email**: [Contact form](https://andrewgetz.dev/contact)
+- **Website**: [andrewgetz.com](https://andrewgetz.com)
+- **Email**: [Contact form](https://andrewgetz.com/contact)
 - **GitHub**: [@andrewgetz](https://github.com/andrewgetz)
 - **LinkedIn**: [Andrew Getz](https://linkedin.com/in/andrewgetz)
 
