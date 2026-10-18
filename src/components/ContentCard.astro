@@ -1,0 +1,154 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  date: Date;
+  type?: string;
+  category?: string;
+  tags?: string[];
+  /** When set, emit data-type / data-tags for client-side filters on /work */
+  filterable?: boolean;
+}
+
+const {
+  href,
+  title,
+  description,
+  date,
+  type = "",
+  category = "",
+  tags = [],
+  filterable = false,
+} = Astro.props;
+
+function formatDate(d: Date): string {
+  return d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+  });
+}
+
+const dataAttrs = filterable
+  ? {
+      "data-type": type,
+      "data-tags": tags.join(","),
+    }
+  : {};
+---
+
+<a href={href} class="item" {...dataAttrs}>
+  <div class="item-top">
+    <h3 class="item-title">{title}</h3>
+    <div class="item-badges">
+      {
+        type && (
+          <span class="badge badge-gray-subtle">{type}</span>
+        )
+      }
+      {
+        category && (
+          <span class="badge badge-teal-subtle">
+            {category.replace("-", " ")}
+          </span>
+        )
+      }
+    </div>
+  </div>
+  <p class="item-desc">{description}</p>
+  <div class="item-bottom">
+    <div class="item-tags">
+      {
+        tags.slice(0, 3).map((tag) => (
+          <span class="badge badge-amber-subtle">{tag}</span>
+        ))
+      }
+    </div>
+    <span class="item-date">{formatDate(date)} &rarr;</span>
+  </div>
+</a>
+
+<style>
+  .item {
+    display: block;
+    padding: var(--space-6);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius);
+    background: var(--bg-secondary);
+    text-decoration: none;
+    transition: border-color var(--transition-fast);
+  }
+
+  .item:hover {
+    border-color: var(--border-hover);
+    text-decoration: none;
+  }
+
+  .item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+
+  .item-title {
+    margin: 0;
+    font-family: var(--font-pixel-square);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-primary);
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    line-height: var(--leading-tight);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .item-badges {
+    display: flex;
+    gap: var(--space-1);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  .item-desc {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-3);
+  }
+
+  .item-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .item-date {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .item-top {
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .item-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+  }
+</style>
