@@ -2,6 +2,7 @@
 // Work Page - All content with tag filtering
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ContentCard from '../components/ContentCard.astro';
 
 const allContent = (await getCollection('posts'))
   .filter(p => !p.data.draft)
@@ -17,10 +18,6 @@ const types = ['all', ...new Set(allContent.map(c => c.data.type).filter(Boolean
 
 // Collect unique tags from all content
 const allTags = [...new Set(allContent.flatMap(c => c.data.tags))].sort();
-
-function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
-}
 ---
 
 <BaseLayout
@@ -53,28 +50,16 @@ function formatDate(date: Date): string {
 
       <div class="items">
         {allContent.map(item => (
-          <a href={item.href} class="item" data-type={item.data.type} data-tags={item.data.tags.join(',')}>
-            <div class="item-top">
-              <h3 class="item-title">{item.data.title}</h3>
-              <div class="item-badges">
-                {item.data.type && (
-                  <span class="badge badge-gray-subtle">{item.data.type}</span>
-                )}
-                {item.data.category && (
-                  <span class="badge badge-teal-subtle">{item.data.category.replace('-', ' ')}</span>
-                )}
-              </div>
-            </div>
-            <p class="item-desc">{item.data.description}</p>
-            <div class="item-bottom">
-              <div class="item-tags">
-                {item.data.tags.slice(0, 3).map((tag: string) => (
-                  <span class="badge badge-amber-subtle">{tag}</span>
-                ))}
-              </div>
-              <span class="item-date">{formatDate(item.date)} &rarr;</span>
-            </div>
-          </a>
+          <ContentCard
+            href={item.href}
+            title={item.data.title}
+            description={item.data.description}
+            date={item.date}
+            type={item.data.type}
+            category={item.data.category}
+            tags={item.data.tags}
+            filterable
+          />
         ))}
       </div>
     </section>
@@ -171,82 +156,11 @@ function formatDate(date: Date): string {
     border-color: var(--text-primary);
   }
 
-  /* Content items */
   .items {
     display: flex;
     flex-direction: column;
     gap: var(--space-6);
     margin-top: var(--space-8);
-  }
-
-  .item {
-    display: block;
-    padding: var(--space-6);
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius);
-    background: var(--bg-secondary);
-    text-decoration: none;
-    transition: border-color var(--transition-fast);
-  }
-
-  .item:hover {
-    border-color: var(--border-hover);
-    text-decoration: none;
-  }
-
-  .item-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: var(--space-4);
-    margin-bottom: var(--space-2);
-  }
-
-  .item-title {
-    margin: 0;
-    font-family: var(--font-pixel-square);
-    font-size: var(--text-base);
-    font-weight: 500;
-    color: var(--text-primary);
-    text-transform: lowercase;
-    letter-spacing: 0.02em;
-    line-height: var(--leading-tight);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .item-badges {
-    display: flex;
-    gap: var(--space-1);
-    flex-shrink: 0;
-    flex-wrap: wrap;
-  }
-
-  .item-desc {
-    color: var(--text-secondary);
-    font-size: var(--text-sm);
-    line-height: var(--leading-normal);
-    margin-bottom: var(--space-3);
-  }
-
-  .item-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-
-  .item-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-1);
-  }
-
-  .item-date {
-    font-size: var(--text-xs);
-    color: var(--text-tertiary);
-    white-space: nowrap;
   }
 
   @media (max-width: 768px) {
@@ -256,17 +170,6 @@ function formatDate(date: Date): string {
 
     .section {
       padding: var(--space-8) 0;
-    }
-
-    .item-top {
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-
-    .item-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-2);
     }
   }
 </style>
