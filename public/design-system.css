@@ -392,6 +392,58 @@ button:focus {
 .badge-development { color: #3b82f6; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); }
 .badge-tools { color: #f97316; background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.2); }
 
+/* Long-form article body — readable contrast; Sans headings (not pixel/lowercase) */
+.post-body p,
+.post-body li {
+  color: var(--text-primary);
+}
+
+.post-body h2,
+.post-body h3,
+.post-body h4,
+.post-body h5,
+.post-body h6 {
+  font-family: var(--font-geist-sans);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-6) 0;
+  font-size: var(--text-sm);
+}
+
+.post-body th,
+.post-body td {
+  border: 1px solid var(--border-primary);
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  color: var(--text-primary);
+}
+
+.post-body th {
+  background-color: var(--bg-secondary);
+  font-weight: 600;
+}
+
+.post-body hr {
+  border: none;
+  border-top: 1px solid var(--border-secondary);
+  margin: var(--space-8) 0;
+}
+
+.post-body figcaption {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   :root {
