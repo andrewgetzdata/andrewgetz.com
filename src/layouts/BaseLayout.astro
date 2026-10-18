@@ -114,6 +114,18 @@ const currentPath = Astro.url.pathname;
   <!-- Import Design System Styles -->
   <link rel="stylesheet" href="/fonts.css" />
   <link rel="stylesheet" href="/design-system.css" />
+
+  <!-- Theme init before paint — matches ThemeToggle: missing storage = system -->
+  <script is:inline>
+    (function() {
+      var stored = localStorage.getItem('theme');
+      var preference = stored || 'system';
+      var theme = (preference === 'system')
+        ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        : preference;
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 
 <body>
@@ -150,15 +162,6 @@ const currentPath = Astro.url.pathname;
     </div>
   </footer>
 
-  <!-- Theme initialization script - runs before page render -->
-  <script is:inline>
-    (function() {
-      var stored = localStorage.getItem('theme');
-      var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var theme = stored || (systemDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
-    })();
-  </script>
 </body>
 </html>
 

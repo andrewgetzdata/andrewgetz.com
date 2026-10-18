@@ -41,28 +41,3 @@ const isProduction = import.meta.env.PROD;
     </script>
   </Fragment>
 )}
-
-<!-- Privacy-focused page view tracking (without cookies) -->
-<script is:inline>
-  // Simple, privacy-focused page view tracking
-  if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
-    // Track page views without personal data
-    try {
-      fetch('/api/analytics', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          page: window.location.pathname,
-          referrer: document.referrer ? new URL(document.referrer).hostname : '',
-          timestamp: new Date().toISOString()
-        })
-      }).catch(() => {
-        // Silently fail if analytics endpoint doesn't exist
-      });
-    } catch (e) {
-      // Silently fail
-    }
-  }
-</script>
