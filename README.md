@@ -1,51 +1,52 @@
 # Andrew Getz - Portfolio & Blog
 
-A modern, performant personal portfolio and blog built with [Astro](https://astro.build) and following [Vercel's Geist design principles](https://vercel.com/geist/introduction).
+Personal portfolio and writing site at [andrewgetz.com](https://andrewgetz.com), built with [Astro](https://astro.build) and [Vercel Geist design principles](https://vercel.com/geist/introduction).
 
-## 🚀 Features
+## Features
 
-- **Modern Stack**: Built with Astro v5, TypeScript, and modern CSS
-- **Design System**: Clean, minimalist design following Swiss design principles
-- **Performance**: Static site generation with excellent Core Web Vitals
-- **Content Management**: Markdown-based blog and project showcases
-- **SEO Optimized**: Comprehensive meta tags, structured data, and sitemap
-- **Accessibility**: WCAG AA compliant with semantic HTML and ARIA support
-- **Responsive**: Mobile-first design that works beautifully on all devices
-- **Dark/Light Themes**: Theme toggle with system preference detection
+- **Modern stack**: Astro v5, TypeScript, modern CSS
+- **Design system**: Clean, minimalist Geist-inspired UI (dark default + light theme)
+- **Performance**: Static site generation
+- **Content**: Markdown via Astro Content Collections (`src/content/posts/`)
+- **SEO**: Meta tags, structured data, sitemap
+- **Accessibility**: Semantic HTML and ARIA support
+- **Responsive**: Mobile-first layout
+- **Themes**: Dark/light toggle with system preference detection
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Framework**: [Astro](https://astro.build) - Static site generation
-- **Styling**: CSS with custom properties, Geist design system
-- **Typography**: Geist Sans & Geist Mono fonts
-- **Content**: Markdown with frontmatter, Astro Content Collections
-- **Deployment**: Vercel (primary), Netlify (configured)
-- **Forms**: Netlify Forms for contact functionality
-- **Analytics**: Privacy-focused analytics (Vercel/Plausible/Google)
+- **Framework**: [Astro](https://astro.build) — static site generation
+- **Styling**: CSS custom properties, Geist design system
+- **Typography**: Geist Sans, Geist Mono, Geist Pixel
+- **Content**: Markdown + frontmatter, Astro Content Collections
+- **Deployment**: GitHub Pages via GitHub Actions
+- **Analytics**: Privacy-focused (Plausible)
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
 ├── components/      # Reusable UI components
-├── content/         # Markdown content (blog posts & projects)
+├── content/
+│   ├── posts/       # All writing and work (Markdown)
+│   └── config.ts    # Content collection schema
 ├── layouts/         # Page layout templates
-├── pages/           # File-based routing
-└── styles/          # Design system CSS
+└── pages/           # File-based routing
 
 public/
-├── design-system.css  # Complete design system
-├── fonts.css         # Typography definitions
-└── robots.txt        # SEO configuration
+├── CNAME              # Custom domain (andrewgetz.com)
+├── design-system.css  # Design system
+├── fonts.css          # Typography definitions
+└── robots.txt         # SEO configuration
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies
 npm install
 
-# Start development server
+# Start development server (localhost:4321)
 npm run dev
 
 # Build for production
@@ -55,43 +56,39 @@ npm run build
 npm run preview
 ```
 
-## 📝 Content Management
+## Content Management
 
-### Adding Blog Posts
-Create a new Markdown file in `src/content/blog/`:
+All content lives in `src/content/posts/` with a unified schema. Create a new Markdown file:
 
 ```markdown
 ---
 title: "Your Post Title"
-description: "Brief description for SEO"
-pubDate: 2024-01-01
-tags: ["development", "astro"]
+description: "Brief description for SEO and previews"
+pubDate: 2026-01-01
+tags: ["craft"]
 featured: false
+type: "writing"
+category: "blog"
+view_source: ""
+draft: false
 ---
 
 Your content here...
 ```
 
-### Adding Projects
-Create a new Markdown file in `src/content/projects/`:
+| Field | Notes |
+|-------|--------|
+| `type` | `"writing"` for articles; `"code"` / `"work"` for project writeups |
+| `category` | e.g. `"blog"`, `"web development"` |
+| `view_source` | GitHub URL if relevant; else `""` |
+| `featured` | `true` shows on the homepage featured strip |
+| `draft` | `true` hides from listing pages while drafting |
 
-```markdown
----
-title: "Project Name"
-description: "Project description"
-startDate: 2024-01-01
-status: "completed"
-category: "web-development"
-technologies: ["Astro", "TypeScript"]
-featured: true
----
+Live URLs: `https://andrewgetz.com/content/<slug>/`. Listing page: `/work`.
 
-Detailed project case study...
-```
+AI helpers: `.claude/skills/new-blog-post` and `.claude/skills/new-project` (both write to `posts/`).
 
-## 🎨 Design Philosophy
-
-This site follows Geist design principles:
+## Design Philosophy
 
 - **Simplicity**: Remove unnecessary elements
 - **Minimalism**: Clean layouts with generous whitespace
@@ -99,9 +96,9 @@ This site follows Geist design principles:
 - **Precision**: Consistent spacing and typography
 - **Clarity**: Clear navigation and content hierarchy
 
-## 🔧 Customization
+## Customization
 
-The design system is built with CSS custom properties for easy customization:
+Design tokens live in `public/design-system.css`:
 
 ```css
 :root {
@@ -112,40 +109,24 @@ The design system is built with CSS custom properties for easy customization:
 }
 ```
 
-## 📊 Performance
+## Deployment
 
-- **Lighthouse Score**: 95+ across all metrics
-- **Core Web Vitals**: Optimized for excellent user experience
-- **Bundle Size**: Minimal JavaScript, efficient CSS
-- **SEO**: Comprehensive meta tags and structured data
+Push to `main` → GitHub Actions (`.github/workflows/deploy.yml`) builds with `npm ci` + `astro build` and deploys to GitHub Pages. Custom domain: `andrewgetz.com` (`public/CNAME`).
 
-## 🚢 Deployment
+## Documentation
 
-### Vercel (Recommended)
-1. Connect your GitHub repository
-2. Deploy automatically on push to main
-3. Configure environment variables if using analytics
+For maintaining and extending this site, see [CLAUDE.md](./CLAUDE.md).
 
-### Netlify
-1. Configure build settings: `npm run build` → `dist`
-2. Enable form handling for contact form
-3. Deploy with included `netlify.toml` configuration
-
-## 📄 Documentation
-
-For comprehensive documentation on maintaining and extending this site, see [CLAUDE.md](./CLAUDE.md).
-
-## 📝 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🤝 Connect
+## Connect
 
-- **Website**: [andrewgetz.dev](https://andrewgetz.dev)
-- **Email**: [Contact form](https://andrewgetz.dev/contact)
+- **Website**: [andrewgetz.com](https://andrewgetz.com)
 - **GitHub**: [@andrewgetz](https://github.com/andrewgetz)
 - **LinkedIn**: [Andrew Getz](https://linkedin.com/in/andrewgetz)
 
 ---
 
-Built with ❤️ using Astro and deployed on Vercel.
+Built with Astro and deployed on GitHub Pages.

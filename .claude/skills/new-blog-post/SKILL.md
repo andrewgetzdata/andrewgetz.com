@@ -10,51 +10,52 @@ Create a new blog post titled "$ARGUMENTS".
 
 1. **Generate the slug** from the title (lowercase, hyphens, no special characters).
 
-2. **Create the file** at `src/content/blog/<slug>.md` with this frontmatter:
+2. **Create the file** at `src/content/posts/<slug>.md` with this frontmatter (all fields, this order; use `""` when unused):
 
 ```yaml
 ---
 title: "$ARGUMENTS"
-description: "<2-3 sentence summary>"
-pubDate: <today's date as YYYY-MM-DD>
-tags: [<relevant tags>]
+description: "1–2 sentences for SEO and previews — what the reader gets."
+pubDate: YYYY-MM-DD
+tags: ["ai"]
 featured: false
-draft: false
-type: "writing"         # or "work" if it's a technical project writeup
-category: "<optional: content, data-analysis, web-development, automation>"
-view_source: "<optional: URL to source code>"
+type: "writing"
+category: "blog"
+view_source: ""
+draft: true
 ---
 ```
 
-3. **Frontmatter schema reference** (from `src/content/config.ts`):
+3. **Frontmatter schema** (from `src/content/config.ts` — live source of truth):
    - `title` (string, required)
    - `description` (string, required)
    - `pubDate` (Date, required)
-   - `updatedDate` (Date, optional)
-   - `tags` (string[], required)
-   - `featured` (boolean, default false)
-   - `draft` (boolean, default false)
-   - `author` (string, default "Andrew Getz")
-   - `type` (string, optional - "writing" or "work")
-   - `category` (string, optional)
-   - `view_source` (string/URL, optional)
-   - `image` (object with `src` and `alt`, optional)
+   - `tags` (string[], default `[]`)
+   - `featured` (boolean, default `false`) — homepage featured strip; keep selective
+   - `type` (string) — `"writing"` for articles; `"code"` / `"work"` for build writeups (prefer `new-project` skill for those)
+   - `category` (string) — e.g. `"blog"`, `"web development"`
+   - `view_source` (string) — GitHub URL if relevant; else `""`
+   - `draft` (boolean, default `false`) — use `true` while iterating
+
+   Do **not** add `author`, `image`, or `updatedDate` — they are not in the schema.
 
 4. **Write the post body** in Markdown:
-   - Target 800-2000 words
+   - Target ~800–2000 words for substantial posts (shorter is fine for notes)
    - Use H2 (`##`) for main sections, H3 (`###`) for subsections
    - Include code examples with proper syntax highlighting when relevant
    - Voice: conversational but professional, avoid jargon
    - End with a conclusion or takeaway
 
-5. **Check tag consistency** — read existing posts in `src/content/blog/` to reuse existing tags where appropriate rather than creating new ones.
+5. **Check tag consistency** — read existing posts in `src/content/posts/` and reuse tags where appropriate. Prefer a small set (e.g. `ai`, `craft`, plus one concrete tag when useful).
 
 6. **Places that may need updating**:
-   - If `featured: true`, verify it appears on the homepage (`src/pages/index.astro`) in the featured section
-   - If adding a new `type` value, check that the filter buttons on `src/pages/work.astro` will pick it up (they auto-populate from content)
-   - If adding a new `category`, it will auto-appear in filters
+   - If `featured: true`, verify it appears on the homepage (`src/pages/index.astro`)
+   - New `type` / `tags` values auto-appear as filters on `src/pages/work.astro`
+   - Live URL after publish: `https://andrewgetz.com/content/<slug>/`
 
-7. **Validate** by running `npm run build` to ensure no schema errors.
+7. **Validate** with `npm run build` (catches schema errors). Set `draft: false` when ready to ship, then commit and push to `main`.
+
+8. **Optional** — run the `edit-copy` skill on the file before publishing.
 
 ## Writing Style Guide
 
@@ -62,5 +63,4 @@ view_source: "<optional: URL to source code>"
 - Focus on practical insights over theory
 - Use short paragraphs and clear headings
 - Include "what I learned" or actionable takeaways
-- Bold key terms on first use
 - Keep sentences concise — favor clarity over cleverness
