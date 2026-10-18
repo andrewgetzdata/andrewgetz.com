@@ -81,6 +81,10 @@ function formatDate(date: Date): string {
       <div class="post-body">
         <Content />
       </div>
+
+      <p class="post-back">
+        <a href="/work">← all writing</a>
+      </p>
     </div>
   </article>
 </BaseLayout>
@@ -164,7 +168,10 @@ function formatDate(date: Date): string {
   .post-body :global(h5),
   .post-body :global(h6) {
     color: var(--text-primary);
+    font-family: var(--font-geist-sans);
     font-weight: 600;
+    text-transform: none;
+    letter-spacing: -0.02em;
     margin-top: var(--space-8);
     margin-bottom: var(--space-4);
     line-height: var(--leading-tight);
@@ -185,7 +192,7 @@ function formatDate(date: Date): string {
   }
 
   .post-body :global(p) {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     margin-bottom: var(--space-4);
   }
 
@@ -230,8 +237,58 @@ function formatDate(date: Date): string {
   }
 
   .post-body :global(li) {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     margin-bottom: var(--space-2);
+  }
+
+  .post-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-6) 0;
+    font-size: var(--text-sm);
+  }
+
+  .post-body :global(th),
+  .post-body :global(td) {
+    border: 1px solid var(--border-primary);
+    padding: var(--space-2) var(--space-3);
+    text-align: left;
+    color: var(--text-primary);
+  }
+
+  .post-body :global(th) {
+    background-color: var(--bg-secondary);
+    font-weight: 600;
+  }
+
+  .post-body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border-secondary);
+    margin: var(--space-8) 0;
+  }
+
+  .post-body :global(figcaption) {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+    text-align: center;
+  }
+
+  .post-back {
+    margin-top: var(--space-10);
+    margin-bottom: 0;
+  }
+
+  .post-back a {
+    font-family: var(--font-geist-mono);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+
+  .post-back a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
   }
 
   .post-body :global(blockquote) {

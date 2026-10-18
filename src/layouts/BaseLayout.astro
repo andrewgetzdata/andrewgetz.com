@@ -16,7 +16,7 @@ export interface Props {
 const {
   title,
   description = "Andrew Getz's portfolio and personal website - Developer, Data Analyst & Storyteller from Columbus, Ohio",
-  ogImage,
+  ogImage: ogImageProp,
   canonical,
   type = 'website',
   publishedTime,
@@ -27,6 +27,7 @@ const {
 // Generate canonical URL
 const siteUrl = Astro.site || 'https://andrewgetz.dev';
 const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl);
+const ogImage = ogImageProp || new URL('/og-default.png', siteUrl).toString();
 
 // Structured data for SEO
 const structuredData = {
