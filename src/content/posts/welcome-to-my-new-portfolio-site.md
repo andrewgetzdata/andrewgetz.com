@@ -46,4 +46,4 @@ I'll be using this space to share thoughts on:
 
 The site will grow organically with content that I hope provides value to fellow developers, data practitioners, and anyone interested in the intersection of technology and storytelling.
 
-Thanks for visiting, and feel free to [get in touch](/contact) if you'd like to connect or discuss any of the topics I cover here.
+Thanks for visiting, and feel free to [get in touch](/#contact) if you'd like to connect or discuss any of the topics I cover here.
